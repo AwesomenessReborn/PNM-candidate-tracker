@@ -4,14 +4,18 @@ import axios from 'axios';
 
 dotenv.config();
 
-const client = new Client({
+const feedbackListenerBot = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages
     ], 
 });
 
-client.on('messageCreate', async (message) => {
+feedbackListenerBot.on('ready', () => {
+    console.log(`done... logged in as ${feedbackListenerBot.user?.tag}`);
+}); 
+
+feedbackListenerBot.on('messageCreate', async (message) => {
     if (message.author.bot) return;
 
     if (message.content.startsWith('PNM:')) {
@@ -33,4 +37,4 @@ client.on('messageCreate', async (message) => {
     }
 });
 
-client.login(process.env.DISCORD_TOKEN);
+feedbackListenerBot.login(process.env.DISCORD_TOKEN);
