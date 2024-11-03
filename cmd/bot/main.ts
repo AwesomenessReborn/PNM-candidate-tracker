@@ -31,6 +31,9 @@ feedbackListenerBot.on('messageCreate', async (message) => {
             });
             message.channel.send('Feedback recorded successfully.');
         } catch (error) {
+            // handle error in updating information 
+
+            // TODO prompt for more information or bad formatting
             console.error(error);
             message.channel.send('Failed to record feedback.');
         }
