@@ -1,10 +1,15 @@
-const { Client, GatewayIntentBits } = require('discord.js');
-const dotenv = require('dotenv');
-const axios = require('axios');
+import { Client, GatewayIntentBits } from 'discord.js';
+import dotenv from 'dotenv';
+import axios from 'axios';
 
 dotenv.config();
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages
+    ], 
+});
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
