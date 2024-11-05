@@ -52,17 +52,17 @@ Currently, the goal is to set the DB run on the following schema:
 
 ### Overview
 
-This section provides instructions for setting up and running the backend of the application, which uses Express.js and PostgreSQL.
+This section provides instructions for setting up and running the API of the application, which uses Express.js and PostgreSQL.
 
 ### Prerequisites
 
 * Docker and Docker Compose installed
 * `node_modules` appropriately setup. 
 
-### Steps to Run the Backend
+### Steps to Run the API
 
 1. Setting Up Docker with Docker Compose
-Open your terminal and navigate to the backend directory where your docker-compose.yml file is located.
+Open your terminal and navigate to the `/api` directory where your docker-compose.yml file is located.
 
 ```bash
 cd api
@@ -91,17 +91,15 @@ npm run dev
 
 This command will start the server in development mode using nodemon, which automatically restarts the server when file changes are detected.
 
-Editing and Viewing the Database from the Terminal
+### Editing and Viewing the Database from the Terminal
 
-To access and interact with your PostgreSQL database from the terminal:
-
-Open a new terminal window and execute the following command to access the PostgreSQL container:
+To access and interact with your PostgreSQL database from the terminal open a new terminal window and execute the following command to access the PostgreSQL container:
 
 ```bash
 docker exec -it api-db-1 psql -U postgres -d feedbackDB
 ```
 
-Replace backend-db-1 with the actual name of your running PostgreSQL container if itßß differs.
+Replace API-db-1 with the actual name of your running PostgreSQL container if it differs.
 
 Query data from the users table:
 
