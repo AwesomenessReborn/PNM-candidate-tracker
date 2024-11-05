@@ -2,7 +2,6 @@
 
 This project is designed to manage feedback for Potential New Members (PNMs) of a fraternity via discord feedback channels. It consists of two primary components:
 
-
 ## TODO
 
 1. work on the POSTGRESS.
@@ -11,7 +10,7 @@ This project is designed to manage feedback for Potential New Members (PNMs) of 
 ## Project Structure
 
 * `api/**` Contains the *Express.js* API server that handles CRUD operations and connects to the PostgreSQL database.
-* `bot/**` points to *Discord.js* application facilitating the discord bots' functionality. Sends feedback information to the API. 
+* `bot/**` points to *Discord.js* application facilitating the discord bots' functionality. Sends feedback information to the API.
 
 ```text
 pnm-candidate-tracker/
@@ -57,7 +56,7 @@ This section provides instructions for setting up and running the API of the app
 ### Prerequisites
 
 * Docker and Docker Compose installed
-* `node_modules` appropriately setup. 
+* `node_modules` appropriately setup.
 
 ### Steps to Run the API
 

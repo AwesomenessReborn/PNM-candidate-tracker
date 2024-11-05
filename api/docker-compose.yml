@@ -16,5 +16,5 @@ services:
       - db_data:/var/lib/postgresql/data  # Maps data to persist it outside the container
       - ./schema/init.sql:/docker-entrypoint-initdb.d/init.sql  # Runs SQL script on startup
 
-  volumes: 
-    db_data: 
+volumes: 
+  db_data: 
