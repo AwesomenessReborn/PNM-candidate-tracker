@@ -1,0 +1,20 @@
+# Use postgres/example user/password credentials
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: feedbackDB
+    ports: 
+      - "5432:5432"  # Exposes the container’s port 5432 to the host machine's port 5432
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Maps data to persist it outside the container
+      - ./schema/init.sql:/docker-entrypoint-initdb.d/init.sql  # Runs SQL script on startup
+
+  volumes: 
+    db_data: 

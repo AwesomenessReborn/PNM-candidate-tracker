@@ -1,6 +1,7 @@
 # PNM-candidate-tracker
 
-A Discord bot and Express server for managing feedback on potential new members (PNMs) of a fraternity.
+This project is designed to manage feedback for Potential New Members (PNMs) of a fraternity via discord feedback channels. It consists of two primary components:
+
 
 ## TODO
 
@@ -9,35 +10,31 @@ A Discord bot and Express server for managing feedback on potential new members 
 
 ## Project Structure
 
-* `src/**` points to the *Express.js* application making CRUD operations.
-* `cmd/**` points to *Discord.js* application facilitating the discord bots' functionality.
+* `api/**` Contains the *Express.js* API server that handles CRUD operations and connects to the PostgreSQL database.
+* `bot/**` points to *Discord.js* application facilitating the discord bots' functionality. Sends feedback information to the API. 
 
 ```text
-project-root/
-|
-├── cmd/                        # Main entry point for the bot
-│   └── bot/
-│       └── main.ts             # Starts the Discord bot
-|
-├── src/                        # Source files for your DB application
-│   ├── api/                    # API-related files
-│   │   ├── index.ts            # Express server setup
-│   │   └── feedback.ts         # API routes for feedback
-│   ├── models/                 # Data models
-│   │   └── feedback.ts         
-│   ├── services/               # Business logic for handling operations
-│   │   └── feedbackService.ts  # Service to handle feedback logic
-│   └── config/                 # Configuration files
-│       └── config.ts           # Environment and config setup
-|
-├── package.json                # Node.js project metadata and dependencies
-├── .env                        # Environment variables (tokens, DB credentials)
+pnm-candidate-tracker/
+├── bot/
+│   ├── src/                    # Discord bot entry point. 
+│   │   └── bot.ts
+│   ├── .env
+│   ├── package.json
+│   └── tsconfig.json
+├── api/
+│   ├── src/                    # CRUD operations api entry point. 
+│   │   └── api.ts
+│   ├── .env
+│   ├── package.json
+│   └── tsconfig.json
+│
 └── README.md                   # Project documentation
 ```
 
 ## Development process
 
-You can run the compiled JavaScript from the dist directory
+Both entry points are to run separately...
+TODO ... finish this section
 
 ## DB Schema
 

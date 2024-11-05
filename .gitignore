@@ -1,5 +1,6 @@
 # Node.js dependencies
-/node_modules/
+/bot/node_modules
+/api/node_modules
 
 # Logs
 logs
