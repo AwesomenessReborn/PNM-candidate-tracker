@@ -7,9 +7,9 @@ services:
     image: postgres:13
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: feedbackDB
+      POSTGRES_USER: postgresql      # This sets the username
+      POSTGRES_PASSWORD: example      # This sets the password
+      POSTGRES_DB: feedbackDB         # This sets the database name
     ports: 
       - "5432:5432"  # Exposes the container’s port 5432 to the host machine's port 5432
     volumes:

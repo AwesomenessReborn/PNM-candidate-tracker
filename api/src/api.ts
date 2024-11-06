@@ -2,6 +2,9 @@ import express, { Request, Response } from 'express';
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
+import fs from 'fs';
+import path from 'path';
+
 dotenv.config();
 
 const app = express();
@@ -9,26 +12,25 @@ const PORT = process.env.PORT || 3000;
 
 // PostgreSQL connection setup
 const pool = new Pool({
-    user: process.env.DB_USER,      // From .env
-    host: process.env.DB_HOST,      // From .env
-    database: process.env.DB_NAME,  // From .env
-    password: process.env.DB_PASSWORD, // From .env
-    port: Number(process.env.DB_PORT),
+    user: process.env.DB_USER,      // This should be 'postgresql'
+    host: process.env.DB_HOST,      // This should be 'localhost'
+    database: process.env.DB_NAME,  // This should be 'feedbackDB'
+    password: process.env.DB_PASSWORD, // This should be 'example'
+    port: Number(process.env.DB_PORT),  // This should be 5432
 });
 
 app.use(express.json());
 
 // Create users table if it does not exist
 const createUsersTable = async () => {
-    const query = `
-
-    `;
+    const filePath = path.join(__dirname, '../schema/init.sql');        // initialization sql query
+    const sql = fs.readFileSync(filePath, 'utf-8');
 
     try {
-        await pool.query(query);
+        await pool.query(sql);
         console.log('Users table created or already exists.');
     } catch (err) {
-        console.error('Error creating users table:', err);
+        console.error('-----------\nError creating users table:\n', err);
     }
 };
 
