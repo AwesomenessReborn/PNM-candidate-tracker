@@ -1,6 +1,10 @@
 
 
 
+-- NOTE remember to add phone number for 2FA for signin in auth.users table
+
+-- general_user table ... 1 to 1 relationship with auth.users. 
+-- NOTE upon auth.users creation, create a general_user to hold user metadata. 
 CREATE TABLE IF NOT EXISTS general_user (
     general_user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id UUID UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE, 
@@ -14,6 +18,11 @@ CREATE TABLE IF NOT EXISTS general_user (
     -- together will make up the exact time they started school, to calculate which year. 
     university_join_season ENUM('FALL', 'SPRING'), 
     university_join_year INT CHECK (university_join_year >= 2000 AND university_join_year <= EXTRACT(YEAR FROM CURRENT_DATE)),
+
+    -- Contact information (optional fields)
+    portfolio_url VARCHAR(255), 
+    linkedIn_url VARCHAR(255), 
+    github_url VARCHAR(255), 
 );
 
 CREATE TABLE IF NOT EXISTS PNMs (
@@ -22,6 +31,7 @@ CREATE TABLE IF NOT EXISTS PNMs (
     FOREIGN KEY (user_id) REFERENCES general_user(user_id) ON DELETE CASCADE  -- Cascade delete if the user is removed
 );
 
+-- ! brothers should also hold big/little information. 
 CREATE TABLE IF NOT EXISTS Brothers (
     brother_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT UNIQUE,  -- A user can only be a brother once
@@ -34,8 +44,7 @@ CREATE TABLE IF NOT EXISTS Rushees (
     FOREIGN KEY (user_id) REFERENCES general_user(user_id) ON DELETE CASCADE
 );
 
-
--- automate general_user creation upon user sign in. 
+-- * automate general_user creation upon user sign in. 
 CREATE OR REPLACE FUNCTION create_general_user()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -48,7 +57,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER on_user_signup
 AFTER INSERT ON auth.users
 FOR EACH ROW EXECUTE FUNCTION create_general_user();
-
+-- * end macro
 
 
 
