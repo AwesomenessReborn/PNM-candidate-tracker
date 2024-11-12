@@ -38,10 +38,10 @@ const createUsersTable = async () => {
 createUsersTable();
 
 // Dummy CRUD endpoint for testing
-app.get('/api/dummy', async (req: Request, res: Response) => {
+app.get('/test', async (req: Request, res: Response) => {
     try {
         const result = await pool.query('SELECT NOW()');
-        res.json({ message: 'Connected to the DB!', time: result.rows[0] });
+        res.status(200).json({ message: 'Connected to the DB!', time: result.rows[0] });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Database connection error' });
@@ -51,3 +51,4 @@ app.get('/api/dummy', async (req: Request, res: Response) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
