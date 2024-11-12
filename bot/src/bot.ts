@@ -20,6 +20,14 @@ feedbackListenerBot.on('messageCreate', async (message) => {
     if (message.author.bot) return;
 
     // Check if the message has a feedback format
+    // TODO need to fix this pattern, currently does not work 
+    /**
+     * NOTE
+     * first one works, but it requires a single order. 
+     * 
+     * second one does not work at all. 
+     */
+    // const feedbackPattern = /^PNM:\s*(.+?)\nReason:\s*(.+)(?:\nSeverity:\s*(-?\d+))?(?:\nRelease:\s*(true|false))?$/i;
     const feedbackPattern = /^PNM:\s*(.+?)\n(?=.*\bReason:\s*(.+))(?:(?:Severity:\s*(-?\d+))|(?:Release:\s*(true|false))|\s*)*$/i;
 
     const match = message.content.match(feedbackPattern);
