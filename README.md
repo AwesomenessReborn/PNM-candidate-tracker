@@ -47,6 +47,9 @@ Currently, the goal is to set the DB run on the following schema:
 6. Release feedback? (weather not to release to the public -- boolean value)
 7. Date (auto populated -- reported date)
 
+> [!NOTE]
+> The `supabase_schema.sql` and the `user_change_audit.sql` files are for purposes of setting up a supabase PostgresSQL server instead of a self hosted solution. Use the `init.sql` for a vanilla setup by running the docker container.
+
 ## DB Controls
 
 ### Overview
