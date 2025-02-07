@@ -106,7 +106,7 @@ docker exec -it api-db-1 psql -U postgresql -d feedbackDB
 * `-U postgresql` is the username defined within our postgreSQL container to access the DB.
 * `feedbackDB` is the name of the database in our container.
 
-Replace API-db-1 with the actual name of your running PostgreSQL container if it differs. To check the name fo the container you can run `docker ps` to list out all the containers running on your machine locally along with their information & names.
+Replace `api-db-1` with the actual name of your running PostgreSQL container if it differs. To check the name fo the container you can run `docker ps` to list out all the containers running on your machine locally along with their information & names.
 
 Query data from the users table:
 
