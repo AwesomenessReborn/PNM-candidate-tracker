@@ -16,26 +16,33 @@ const pool = new Pool({
     host: process.env.DB_HOST,      // This should be 'localhost'
     database: process.env.DB_NAME,  // This should be 'feedbackDB'
     password: process.env.DB_PASSWORD, // This should be 'example'
-    port: Number(process.env.DB_PORT),  // This should be 5432
+    port: Number(process.env.DB_PORT) || 5432,  // This should be 5432
 });
 
 app.use(express.json());
 
-// Create users table if it does not exist
-const createUsersTable = async () => {
-    const filePath = path.join(__dirname, '../schema/init.sql');        // initialization sql query
-    const sql = fs.readFileSync(filePath, 'utf-8');
+// Health check endpoint
+app.get('/api/health', async (req, res) => {
+  try {
+    // Check database connectivity
+    await pool.query('SELECT 1');
+    
+    // If successful, return healthy status
+    res.status(200).json({
+      status: 'healthy',
+      database: 'connected',
+      uptime: process.uptime() + 's',
+    });
+  } catch (error) {
+    // If an error occurs, return unhealthy status
+    res.status(500).json({
+      status: 'unhealthy',
+      database: 'disconnected',
+      error: error.message,
+    });
+  }
+});
 
-    try {
-        await pool.query(sql);
-        console.log('Users table created or already exists.');
-    } catch (err) {
-        console.error('-----------\nError creating users table:\n', err);
-    }
-};
-
-// Call the function to create the users table
-createUsersTable();
 
 // Dummy CRUD endpoint for testing
 app.get('/test', async (req: Request, res: Response) => {
@@ -50,5 +57,11 @@ app.get('/test', async (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
+});
+
+process.on('SIGINT', async () => {
+    console.log('Closing database connection...');
+    await pool.end();
+    process.exit();
 });
 
