@@ -50,7 +50,6 @@ app.get('/api/health', async (req, res) => {
         error: 'An unknown error occurred.',
       });
     }
-
   }
 });
 
@@ -65,12 +64,42 @@ app.get('/test', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/pnms', async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query('SELECT * FROM pnm_candidates');
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error fetching PNM data:', error);
+    res.status(500).json({ error: 'Failed to fetch PNM data' });
+  }
+});
+
+app.get('/actives', async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query('SELECT * FROM active_list');
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error fetching active list:', error);
+    res.status(500).json({ error: 'Failed to fetch active list' });
+  }
+});
+
+app.get('/feedbacks', async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query('SELECT * FROM feedbacks_table');
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error fetching feedbacks:', error);
+    res.status(500).json({ error: 'Failed to fetch feedbacks' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
 process.on('SIGINT', async () => {
-  console.log('Closing database connection...');
+  console.log('safely closing database connection...');
   await pool.end();
   process.exit();
 });
